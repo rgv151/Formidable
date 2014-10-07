@@ -82,6 +82,14 @@ class FileField extends Field
                 return array('file_required', $this->printName());
             }
         }
+        
+        // Contraintes custom
+        foreach ($this->constraints as $constraint) {
+            $err = $constraint($this->datas);
+            if ($err) {
+                return $err;
+            }
+        }
 
         return;
     }
